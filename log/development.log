@@ -1,31 +1,48 @@
-Started GET "/" for ::1 at 2019-12-26 17:29:30 +0800
+  [1m[35m (13.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTodos (20200118075535)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "todos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "done" boolean, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20200118075535"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-01-18 07:55:59.889488"], ["updated_at", "2020-01-18 07:55:59.889488"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/v1/todos" for ::1 at 2020-01-18 15:59:50 +0800
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 5ms (Views: 1.7ms | ActiveRecord: 0.4ms | Allocations: 1758)
+
+
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTodo Create (0.3ms)[0m  [1m[32mINSERT INTO "todos" ("title", "done", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Buy food: milk, bread, fruits"], ["done", 0], ["created_at", "2020-01-18 08:01:32.378309"], ["updated_at", "2020-01-18 08:01:32.378309"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTodo Create (0.2ms)[0m  [1m[32mINSERT INTO "todos" ("title", "done", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Imagine Dragons tickets"], ["done", 0], ["created_at", "2020-01-18 08:01:32.382108"], ["updated_at", "2020-01-18 08:01:32.382108"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/api/v1/todos" for ::1 at 2020-01-18 16:01:39 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.4ms | Allocations: 4172)
+
+
+Started GET "/favicon.ico" for ::1 at 2020-01-18 16:01:39 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -33,52 +50,48 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2019-12-26 17:30:15 +0800
+Started GET "/api/v1/todos" for ::1 at 2020-01-18 16:01:44 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.1ms | Allocations: 1115)
+
+
+Started GET "/api/v1/todos" for ::1 at 2020-01-18 16:03:53 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 1077)
+
+
+Started GET "/api/v1/todos" for ::1 at 2020-01-18 16:40:28 +0800
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.6ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 1.0ms | Allocations: 5031)
+
+
+Started GET "/favicon.ico" for ::1 at 2020-01-18 16:40:28 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -86,52 +99,34 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2019-12-26 18:31:26 +0800
+Started GET "/" for ::1 at 2020-01-18 23:58:11 +0800
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 6.8ms | Allocations: 310)
+Completed 200 OK in 13ms (Views: 9.9ms | ActiveRecord: 0.0ms | Allocations: 1626)
+
+
+Started GET "/favicon.ico" for ::1 at 2020-01-18 23:58:11 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -139,52 +134,82 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2019-12-26 18:31:27 +0800
+Started GET "/" for ::1 at 2020-01-18 23:58:46 +0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.4ms | Allocations: 185)
+Completed 200 OK in 9ms (Views: 8.2ms | ActiveRecord: 0.0ms | Allocations: 761)
+
+
+Started GET "/" for ::1 at 2020-01-18 23:59:39 +0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | Allocations: 8)
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.0ms | Allocations: 266)
+
+
+Started GET "/" for ::1 at 2020-01-19 00:00:31 +0800
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.4ms | Allocations: 310)
+Completed 200 OK in 11ms (Views: 9.4ms | ActiveRecord: 0.0ms | Allocations: 1626)
+
+
+Started GET "/" for ::1 at 2020-01-19 00:01:08 +0800
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 6.1ms | Allocations: 310)
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 0.0ms | Allocations: 1626)
+
+
+Started GET "/" for ::1 at 2020-01-19 00:01:11 +0800
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 6.3ms | Allocations: 185)
+Completed 200 OK in 8ms (Views: 7.0ms | ActiveRecord: 0.0ms | Allocations: 749)
+
+
+Started GET "/" for ::1 at 2020-01-26 13:42:32 +0800
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.9ms | Allocations: 310)
+Completed 200 OK in 15ms (Views: 11.4ms | ActiveRecord: 0.0ms | Allocations: 1626)
+
+
+Started GET "/api/v1/todos" for ::1 at 2020-01-26 14:09:15 +0800
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.8ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 9ms (Views: 5.5ms | ActiveRecord: 1.3ms | Allocations: 5030)
+
+
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 14:09:26 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -192,52 +217,25 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2019-12-26 18:31:28 +0800
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 14:09:29 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -245,52 +243,25 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:10:51 +0800
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 14:12:00 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -298,52 +269,25 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:18:28 +0800
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 14:12:02 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -351,52 +295,32 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:18:35 +0800
+Started GET "/api/v1/todos" for ::1 at 2020-01-26 14:12:37 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 1075)
+
+
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 14:12:39 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -404,52 +328,70 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:21:46 +0800
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 14:30:49 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.5ms | Allocations: 1073)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 14:30:59 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.2ms | Allocations: 1060)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 14:36:38 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.5ms | Allocations: 1063)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 14:38:18 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 1076)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 15:05:56 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.3ms | Allocations: 1073)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 15:06:51 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.2ms | Allocations: 1060)
+
+
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 15:07:57 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -457,52 +399,47 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:21:53 +0800
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 15:08:50 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1059)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:08:41 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.4ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.4ms | Allocations: 1063)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:11:24 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1060)
+
+
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-26 18:12:53 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -510,52 +447,696 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:22:02 +0800
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:12:59 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 1059)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:12:59 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 1060)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:13:34 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.1ms | Allocations: 1060)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:13:55 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.2ms | Allocations: 1060)
+
+
+Started POST "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:13:58 +0800
+Processing by TodosController#create as HTML
+  Parameters: {"todo"=>{"title"=>"hu"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[36mTodo Create (4.9ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["title", "hu"], ["created_at", "2020-01-26 10:13:58.937200"], ["updated_at", "2020-01-26 10:13:58.937200"]]
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 5.7ms | Allocations: 2417)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:14:15 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:16:11 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:16:23 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:16:31 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:18:09 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.2ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:18:10 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:19:27 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 18:19:27 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:22:41 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.4ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.4ms | Allocations: 1190)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:22:49 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"2"}
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (1.8ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:22:49.739276"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 19ms (Views: 0.3ms | ActiveRecord: 2.7ms | Allocations: 4611)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:22:50 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:22:50.573019"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2959)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-26 19:22:54 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:22:54.290925"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 1.7ms | Allocations: 2959)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-26 19:22:54 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:22:54.709014"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2959)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-26 19:22:55 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:22:55.182620"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 2959)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-26 19:22:55 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:22:55.463834"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2957)
+
+
+Started PUT "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:23:16 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:23:16.511099"], ["id", 3]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.7ms | Allocations: 2959)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:23:17 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started PUT "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:23:19 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:23:19.999568"], ["id", 3]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 2956)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:24:51 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.0ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:24:51 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started PUT "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:24:53 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:24:53.147958"], ["id", 3]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 2956)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:24:57 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms | Allocations: 1187)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:24:59 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:24:59.631909"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:25:01 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:25:01.720514"], ["id", 3]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.0ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:25:02 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:25:02.473571"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 2956)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:25:46 +0800
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms | Allocations: 1187)
+
+
+Started PUT "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:25:48 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:25:48.012786"], ["id", 3]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2956)
+
+
+Started DELETE "/api/v1/todos/3" for 127.0.0.1 at 2020-01-26 19:25:49 +0800
+Processing by TodosController#destroy as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:20:in `destroy'
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[36mTodo Destroy (1.1ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+Completed 204 No Content in 4ms (ActiveRecord: 1.8ms | Allocations: 2233)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:25:51 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:25:51.312249"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 1.8ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:25:52 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:25:52.784898"], ["id", 2]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 1.6ms | Allocations: 2959)
+
+
+Started DELETE "/api/v1/todos/2" for 127.0.0.1 at 2020-01-26 19:25:55 +0800
+Processing by TodosController#destroy as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:20:in `destroy'
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[36mTodo Destroy (0.2ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+Completed 204 No Content in 4ms (ActiveRecord: 1.5ms | Allocations: 2211)
+
+
+Started POST "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:26:08 +0800
+Processing by TodosController#create as HTML
+  Parameters: {"todo"=>{"title"=>"finish the report"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[36mTodo Create (1.1ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["title", "finish the report"], ["created_at", "2020-01-26 11:26:08.465680"], ["updated_at", "2020-01-26 11:26:08.465680"]]
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.8ms | Allocations: 2223)
+
+
+Started POST "/api/v1/todos" for 127.0.0.1 at 2020-01-26 19:27:19 +0800
+Processing by TodosController#create as HTML
+  Parameters: {"todo"=>{"title"=>"give a new way"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[36mTodo Create (0.3ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["title", "give a new way"], ["created_at", "2020-01-26 11:27:19.911917"], ["updated_at", "2020-01-26 11:27:19.911917"]]
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 2223)
+
+
+Started DELETE "/api/v1/todos/5" for 127.0.0.1 at 2020-01-26 19:27:21 +0800
+Processing by TodosController#destroy as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:20:in `destroy'
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[36mTodo Destroy (0.2ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 5]]
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:21:in `destroy'
+Completed 204 No Content in 4ms (ActiveRecord: 1.5ms | Allocations: 2211)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-26 19:27:23 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"4"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 11:27:23.051681"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-26 19:27:23 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"4"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 11:27:23.610742"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 2.1ms | Allocations: 2956)
+
+
+Started POST "/api/v1/todos" for 127.0.0.1 at 2020-01-27 00:34:30 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#create as HTML
+  Parameters: {"todo"=>{"title"=>"give a new way"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[36mTodo Create (1.0ms)[0m  [1m[32mINSERT INTO "todos" ("title", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["title", "give a new way"], ["created_at", "2020-01-26 16:34:30.136133"], ["updated_at", "2020-01-26 16:34:30.136133"]]
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:9:in `create'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 2.0ms | Allocations: 2223)
+
+
+Started PUT "/api/v1/todos/6" for 127.0.0.1 at 2020-01-27 00:34:33 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:34:33.119680"], ["id", 6]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.3ms | ActiveRecord: 1.2ms | Allocations: 2973)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-27 00:40:57 +0800
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 8ms (Views: 5.7ms | ActiveRecord: 0.7ms | Allocations: 5157)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-27 00:41:00 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"4"}
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.4ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:41:00.943331"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 1.2ms | Allocations: 3580)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-27 00:41:01 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:41:01.869963"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.3ms | ActiveRecord: 1.3ms | Allocations: 2977)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-27 00:41:02 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:41:02.649945"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2977)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-27 00:41:03 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"4"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:41:03.804600"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2975)
+
+
+Started PUT "/api/v1/todos/6" for 127.0.0.1 at 2020-01-27 00:41:04 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:41:04.440800"], ["id", 6]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2958)
+
+
+Started GET "/api/v1/todos" for 127.0.0.1 at 2020-01-27 00:47:24 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by TodosController#index as HTML
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" ORDER BY created_at DESC[0m
+  ↳ app/controllers/todos_controller.rb:5:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1190)
+
+
+Started PUT "/api/v1/todos/6" for 127.0.0.1 at 2020-01-27 00:47:25 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.3ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:47:25.879072"], ["id", 6]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2972)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-27 00:47:26 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"4"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:47:26.666299"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-27 00:47:27 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>true}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 1], ["updated_at", "2020-01-26 16:47:27.872274"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2957)
+
+
+Started PUT "/api/v1/todos/1" for 127.0.0.1 at 2020-01-27 00:47:28 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"1"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:47:28.307138"], ["id", 1]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 1.5ms | Allocations: 2957)
+
+
+Started PUT "/api/v1/todos/4" for 127.0.0.1 at 2020-01-27 00:47:28 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"4"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:47:28.982856"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.3ms | Allocations: 2956)
+
+
+Started PUT "/api/v1/todos/6" for 127.0.0.1 at 2020-01-27 00:47:30 +0800
+Processing by TodosController#update as HTML
+  Parameters: {"todo"=>{"done"=>false}, "id"=>"6"}
+  [1m[36mTodo Load (0.1ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:14:in `update'
+DEPRECATION WARNING: update_attributes is deprecated and will be removed from Rails 6.1 (please, use update instead) (called from update at /Users/meganwang/todo-api/app/controllers/todos_controller.rb:15)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[36mTodo Update (0.2ms)[0m  [1m[33mUPDATE "todos" SET "done" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["done", 0], ["updated_at", "2020-01-26 16:47:30.795748"], ["id", 6]]
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:15:in `update'
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 2956)
+
+
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:53:17 +0800
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -563,52 +1144,25 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:22:04 +0800
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:53:18 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -616,52 +1170,25 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
-Started GET "/" for ::1 at 2020-01-14 10:23:07 +0800
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:53:18 +0800
   
-Mysql2::Error::ConnectionError (Access denied for user 'root'@'localhost' (using password: NO)):
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
   
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `connect'
-mysql2 (0.5.3) lib/mysql2/client.rb:90:in `initialize'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `mysql2_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:889:in `new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:933:in `checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:912:in `try_to_checkout_new_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:873:in `acquire_connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:595:in `checkout'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:439:in `connection'
-activerecord (6.0.2.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:1121:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:238:in `retrieve_connection'
-activerecord (6.0.2.1) lib/active_record/connection_handling.rb:206:in `connection'
-activerecord (6.0.2.1) lib/active_record/migration.rb:562:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
-activesupport (6.0.2.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
-actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
-web-console (4.0.1) lib/web_console/middleware.rb:132:in `call_app'
-web-console (4.0.1) lib/web_console/middleware.rb:28:in `block in call'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `catch'
-web-console (4.0.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
 railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
@@ -669,21 +1196,213 @@ activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tag
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
 activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
 railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
-sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
-rack (2.0.8) lib/rack/method_override.rb:22:in `call'
-rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
 activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
-rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
 actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
-webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
-rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
 railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
 puma (4.3.1) lib/puma/configuration.rb:228:in `call'
 puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
 puma (4.3.1) lib/puma/server.rb:472:in `process_client'
 puma (4.3.1) lib/puma/server.rb:328:in `block in run'
 puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:53:19 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:53:59 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:54:01 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:54:49 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:54:50 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/babel/parser/lib/index.js" for 127.0.0.1 at 2020-01-27 00:54:51 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/babel/parser/lib/index.js"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for ::1 at 2020-02-02 11:29:08 +0800
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/lib/ruby/gems/2.6.0/gems/railties-6.0.2.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.4ms | Allocations: 310)
+Completed 200 OK in 13ms (Views: 10.2ms | ActiveRecord: 0.0ms | Allocations: 1626)
+
+
+Started GET "/favicon.ico" for ::1 at 2020-02-02 11:29:08 +0800
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (6.0.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.2.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.1.1) lib/rack/runtime.rb:24:in `call'
+activesupport (6.0.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.1.1) lib/rack/sendfile.rb:113:in `call'
+actionpack (6.0.2.1) lib/action_dispatch/middleware/host_authorization.rb:83:in `call'
+railties (6.0.2.1) lib/rails/engine.rb:526:in `call'
+puma (4.3.1) lib/puma/configuration.rb:228:in `call'
+puma (4.3.1) lib/puma/server.rb:681:in `handle_request'
+puma (4.3.1) lib/puma/server.rb:472:in `process_client'
+puma (4.3.1) lib/puma/server.rb:328:in `block in run'
+puma (4.3.1) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
