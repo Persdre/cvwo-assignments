@@ -1,4 +1,4 @@
 # cvwo
-a to-do app with CRUD and tagging functions 
+a to-do app with CRUD functions 
 
 
